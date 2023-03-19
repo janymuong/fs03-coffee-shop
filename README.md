@@ -32,10 +32,10 @@ This is a full-stack application designed with some key functional areas listed 
 
 The `./backend` directory contains a Flask server, with a SQLAlchemy module to simplify your data needs. This is a complete API with the required endpoints, configuration, and integrates smoothly with `Auth0` for **authentication** and **authorization**.
 
-[View the README.md within ./backend/ for more details.](./backend/README.md)
+> [View the README.md within backend/ for more details.](./backend/README.md)
 
 ### Frontend
 
 The `./frontend` directory contains a complete Ionic frontend to consume the data from the Flask server. You might want to only need to update the environment variables found within (./frontend/src/environment/environment.ts) to reflect the Auth0 configuration details set up for the backend app.
 
-[View the README.md within ./frontend/ for more details.](./frontend/README.md)
+> [View the README.md within frontend/ for more details.](./frontend/README.md)
