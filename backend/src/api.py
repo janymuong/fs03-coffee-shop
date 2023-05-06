@@ -35,14 +35,14 @@ def retrieve_dinks():
     '''
     # query drinks from db 
     selection = Drink.query.all()
-    
+
     if len(selection) == 0:
         abort(404)
-        
+
     else:
         # drinks list in .short() representation
         drinks = [drink.short() for drink in selection]
-        
+
         return jsonify({
             'success': True,
             'drinks': drinks
@@ -65,14 +65,14 @@ def drinks_detail(payload):
     '''
     # query drinks from db 
     selection = Drink.query.all()
-    
+
     if len(selection) == 0:
         abort(404)
-        
+
     else:
         # drinks list in .long() representation
         drinks = [drink.long() for drink in selection]
-        
+
         return jsonify({
             'success': True,
             'drinks': drinks
@@ -103,9 +103,9 @@ def create_drink(payload):
             title=req_title,
             recipe=req_recipe
             )
-        
+
         drink.insert()
-        
+
         # drink.long() returns the new drink array
         return jsonify({
             'success': True,
@@ -114,7 +114,7 @@ def create_drink(payload):
 
     except:
         abort(422)
-        
+  
 
 '''
 @TODO implement endpoint
@@ -135,27 +135,24 @@ def update_drink(payload, id):
     '''
     body = request.get_json()
     drink = Drink.query.filter(Drink.id == id).one_or_none()
-    
+
     if drink is None:
         abort(404)
-        
+
     try:
         # json.dumps() provides a string field for recipe update
-        drink = Drink(
-            title=body.get('title') ,
-            recipe=json.dumps(body.get('recipe'))
-            )
-        
+        drink.title = body['title']
+        drink.recipe = json.dumps(body['recipe'])
         drink.update()
-        
-        # drink.long() returns the new drink array
-        return jsonify({
-            'success': True,
-            'drinks': [drink.long()]
-        })
-
     except:
         abort(422)
+
+    # drink.long() returns the new drink array
+    return jsonify({
+        'success': True,
+        'drinks': [drink.long()]
+    })
+
     
 '''
 @TODO implement endpoint
@@ -175,10 +172,10 @@ def delete_drink(payload, id):
     '''
     # select drink by Drink.id to be passed into the delete() function
     drink = Drink.query.filter(Drink.id == id).one_or_none()
-    
+
     if drink is None:
         abort(404)
-        
+
     if drink:
         drink.delete()
 
@@ -237,7 +234,7 @@ def bad_request(error):
                 'message': 'bad request'
                 }), 400
     )
-    
+
 @app.errorhandler(500)
 def server_error(error):
     return (
